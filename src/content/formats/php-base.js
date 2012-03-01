@@ -84,11 +84,11 @@ NotEquals.prototype.verify = function() {
 };
 
 RegexpMatch.prototype.toString = function() {
-    return "(bool)preg_match('/" + this.pattern.replace(/\//g, "\\/") + "/'," + this.expression + ");";
+    return "(bool)preg_match('/" + this.pattern.replace(/\//g, "\\/") + "/'," + this.expression + ")";
 };
 
 RegexpNotMatch.prototype.toString = function() {
-    return "(bool)preg_match('/" + this.pattern.replace(/\//g, "\\/") + "/'," + this.expression + ");";
+    return "(bool)preg_match('/" + this.pattern.replace(/\//g, "\\/") + "/'," + this.expression + ")";
 };
 
 function pause(milliseconds) {
