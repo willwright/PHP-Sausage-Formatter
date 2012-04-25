@@ -20,7 +20,7 @@ Equals.prototype.verify = function() {
 };
 
 function verifyText(want, got) {
-    return '$this->verifyText("' + got.slice(got.indexOf('"') +1, got.lastIndexOf('"')) + '", "' + want + '");';
+    return '$this->verifyText("' + got.slice(got.indexOf('"') +1, got.lastIndexOf('"')) + '", ' + want + ');';
 }
 
 function verifyTrue(expression) {
