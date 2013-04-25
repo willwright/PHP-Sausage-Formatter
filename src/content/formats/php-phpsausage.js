@@ -26,7 +26,7 @@ Equals.prototype.toString = function() {
 };
 
 Equals.prototype.assert = function() {
-    return "Assert.AreEqual(" + this.e1.toString() + ", " + this.e2.toString() + ");";
+    return "$this->assertEquals(" + this.e1.toString() + ", " + this.e2.toString() + ");";
 };
 
 Equals.prototype.verify = function() {
@@ -38,7 +38,7 @@ NotEquals.prototype.toString = function() {
 };
 
 NotEquals.prototype.assert = function() {
-    return "Assert.AreNotEqual(" + this.e1.toString() + ", " + this.e2.toString() + ");";
+    return "$this->assertNotEquals(" + this.e1.toString() + ", " + this.e2.toString() + ");";
 };
 
 NotEquals.prototype.verify = function() {
@@ -62,11 +62,11 @@ function ifCondition(expression, callback) {
 }
 
 function assertTrue(expression) {
-    return "Assert.IsTrue(" + expression.toString() + ");";
+    return "$this->assertTrue(" + expression.toString() + ");";
 }
 
 function assertFalse(expression) {
-    return "Assert.IsFalse(" + expression.toString() + ");";
+    return "$this->assertFalse(" + expression.toString() + ");";
 }
 
 function verify(statement) {
@@ -74,10 +74,10 @@ function verify(statement) {
         "{\n" +
         indents(1) + statement + "\n" +
         "}\n" +
-        "catch (AssertionException e)\n" +
+        "catch (AssertionException $e)\n" +
         "{\n" +
         indents(1) + "verificationErrors.Append(e.Message);\n" +
-        "}";
+        "}";h
 }
 
 function verifyTrue(expression) {
@@ -103,21 +103,11 @@ RegexpMatch.patternToString = function(pattern) {
 };
 
 RegexpMatch.prototype.toString = function() {
-    return "Regex.IsMatch(" + this.expression + ", " + RegexpMatch.patternToString(this.pattern) + ")";
+    return "preg_match(" + RegexpMatch.patternToString(this.pattern) + "," + this.expression + ")";
 };
 
 function waitFor(expression) {
-    return "for (int second = 0;; second++) {\n" +
-        indents(1) + 'if (second >= 60) Assert.Fail("timeout");\n' +
-        indents(1) + "try\n" +
-        indents(1) + "{\n" +
-        (expression.setup ? indents(2) + expression.setup() + "\n" : "") +
-        indents(2) + "if (" + expression.toString() + ") break;\n" +
-        indents(1) + "}\n" +
-        indents(1) + "catch (Exception)\n" +
-        indents(1) + "{}\n" +
-        indents(1) + "Thread.Sleep(1000);\n" +
-        "}";
+    return "$this->spinAssert(\"waitFor Failed\",(" + expression + "));";
 }
 
 function assertOrVerifyFailure(line, isAssert) {
@@ -133,11 +123,11 @@ function assertOrVerifyFailure(line, isAssert) {
 }
 
 function pause(milliseconds) {
-    return "Thread.Sleep(" + parseInt(milliseconds, 10) + ");";
+    return "sleep(" + parseInt(milliseconds, 10) + ");";
 }
 
 function echo(message) {
-    return "Console.WriteLine(" + xlateArgument(message) + ");";
+    return "echo(" + xlateArgument(message) + ");";
 }
 
 function formatComment(comment) {
@@ -158,51 +148,51 @@ WDAPI.Driver.searchContext = function(locatorType, locator) {
     var locatorString = xlateArgument(locator);
     switch (locatorType) {
         case 'xpath':
-            return 'By.XPath(' + locatorString + ')';
+            return '$this->using("xpath")->value(' + locatorString + ')';
         case 'css':
-            return 'By.CssSelector(' + locatorString + ')';
+            return '$this->using("css selector")->value(' + locatorString + ')';
         case 'id':
-            return 'By.Id(' + locatorString + ')';
+            return '$this->using("id")->value(' + locatorString + ')';
         case 'link':
-            return 'By.LinkText(' + locatorString + ')';
+            return '$this->using("link text")->value(' + locatorString + ')';
         case 'name':
-            return 'By.Name(' + locatorString + ')';
+            return '$this->using("name")->value(' + locatorString + ')';
         case 'tag_name':
-            return 'By.TagName(' + locatorString + ')';
+            return '$this->using("tag name")->value(' + locatorString + ')';
     }
     throw 'Error: unknown strategy [' + locatorType + '] for locator [' + locator + ']';
 };
 
 WDAPI.Driver.prototype.back = function() {
-    return this.ref + ".Navigate().Back()";
+    return this.ref + "->back()";
 };
 
 WDAPI.Driver.prototype.close = function() {
-    return this.ref + ".Close()";
+    return this.ref + "->close()";
 };
 
 WDAPI.Driver.prototype.findElement = function(locatorType, locator) {
-    return new WDAPI.Element(this.ref + ".FindElement(" + WDAPI.Driver.searchContext(locatorType, locator) + ")");
+    return new WDAPI.Element(this.ref + "->element(" + WDAPI.Driver.searchContext(locatorType, locator) + ")");
 };
 
 WDAPI.Driver.prototype.findElements = function(locatorType, locator) {
-    return new WDAPI.ElementList(this.ref + ".FindElements(" + WDAPI.Driver.searchContext(locatorType, locator) + ")");
+    return new WDAPI.ElementList(this.ref + "->elements(" + WDAPI.Driver.searchContext(locatorType, locator) + ")");
 };
 
 WDAPI.Driver.prototype.getCurrentUrl = function() {
-    return this.ref + ".Url";
+    return this.ref + "->url()";
 };
 
 WDAPI.Driver.prototype.get = function(url) {
     if (url.length > 1 && (url.substring(1,8) == "http://" || url.substring(1,9) == "https://")) { // url is quoted
-        return this.ref + ".Navigate().GoToUrl(" + url + ")";
+        return this.ref + "->open(" + url + ")";
     } else {
-        return this.ref + ".Navigate().GoToUrl(baseURL + " + url + ")";
+        return this.ref + "->open(" + url + ")";
     }
 };
 
 WDAPI.Driver.prototype.getTitle = function() {
-    return this.ref + ".Title";
+    return this.ref + "->title()";
 };
 
 WDAPI.Driver.prototype.getAlert = function() {
@@ -218,7 +208,7 @@ WDAPI.Driver.prototype.chooseCancelOnNextConfirmation = function() {
 };
 
 WDAPI.Driver.prototype.refresh = function() {
-    return this.ref + ".Navigate().Refresh()";
+    return this.ref + "->refresh()";
 };
 
 WDAPI.Element = function(ref) {
@@ -226,35 +216,35 @@ WDAPI.Element = function(ref) {
 };
 
 WDAPI.Element.prototype.clear = function() {
-    return this.ref + ".Clear()";
+    return this.ref + "->clear()";
 };
 
 WDAPI.Element.prototype.click = function() {
-    return this.ref + ".Click()";
+    return this.ref + "->click()";
 };
 
 WDAPI.Element.prototype.getAttribute = function(attributeName) {
-    return this.ref + ".GetAttribute(" + xlateArgument(attributeName) + ")";
+    return this.ref + "->attribute(" + xlateArgument(attributeName) + ")";
 };
 
 WDAPI.Element.prototype.getText = function() {
-    return this.ref + ".Text";
+    return this.ref + "->text()";
 };
 
 WDAPI.Element.prototype.isDisplayed = function() {
-    return this.ref + ".Displayed";
+    return this.ref + "->displayed()";
 };
 
 WDAPI.Element.prototype.isSelected = function() {
-    return this.ref + ".Selected";
+    return this.ref + "->selected()";
 };
 
 WDAPI.Element.prototype.sendKeys = function(text) {
-    return this.ref + ".SendKeys(" + xlateArgument(text) + ")";
+    return this.ref + "->value(" + xlateArgument(text) + ")";
 };
 
 WDAPI.Element.prototype.submit = function() {
-    return this.ref + ".Submit()";
+    return this.ref + "->submit()";
 };
 
 WDAPI.Element.prototype.select = function(label) {
@@ -270,16 +260,16 @@ WDAPI.ElementList.prototype.getItem = function(index) {
 };
 
 WDAPI.ElementList.prototype.getSize = function() {
-    return this.ref + ".Count";
+    return this.ref + ".length";
 };
 
 WDAPI.ElementList.prototype.isEmpty = function() {
-    return this.ref + ".Count == 0";
+    return this.ref + ".length == 0";
 };
 
 WDAPI.Utils = function() {
 };
 
-WDAPI.Utils.isElementPresent = function(how, what) {
-    return "IsElementPresent(" + WDAPI.Driver.searchContext(how, what) + ")";
+WDAPI.Utils.isElementPresent = function(locatorType, locator) {
+    return "$this->element(" + WDAPI.Driver.searchContext(locatorType, locator) + ") instanceof PHPUnit_Extensions_Selenium2TestCase_Element";
 };
