@@ -1,4 +1,4 @@
 # chrome.manifest for development
-content php-formatters  chrome/content/
+content sauce-formatters  content/
 
-overlay chrome://selenium-ide/content/selenium-ide-overlay.xul chrome://php-formatters/content/formats/format-loader.xul
+overlay chrome://selenium-ide/content/selenium-ide-overlay.xul chrome://sauce-formatters/content/formats/format-loader.xul
