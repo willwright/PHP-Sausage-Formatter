@@ -66,7 +66,12 @@ function assertTrue(expression) {
 }
 
 function assertFalse(expression) {
-    return "$this->assertFalse(" + expression.toString() + ");";
+    return "try {" +
+        "$this->assertFalse(" + expression.toString() + ");" +
+    "} catch (PHPUnit_Extensions_Selenium2TestCase_WebDriverException $e) {" +
+        "$this->assertFalse(false);" +
+    "};\n";
+
 }
 
 function verify(statement) {
