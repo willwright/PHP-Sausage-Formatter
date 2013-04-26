@@ -77,7 +77,7 @@ function verify(statement) {
         "catch (AssertionException $e)\n" +
         "{\n" +
         indents(1) + "verificationErrors.Append(e.Message);\n" +
-        "}";h
+        "}";
 }
 
 function verifyTrue(expression) {
@@ -271,5 +271,5 @@ WDAPI.Utils = function() {
 };
 
 WDAPI.Utils.isElementPresent = function(locatorType, locator) {
-    return "$this->element(" + WDAPI.Driver.searchContext(locatorType, locator) + ") instanceof PHPUnit_Extensions_Selenium2TestCase_Element";
+    return "$this->element(" + WDAPI.Driver.searchContext(locatorType, locator) + ") instanceof PHPUnit_Extensions_Selenium2TestCase_Element"
 };
