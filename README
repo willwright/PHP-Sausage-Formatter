@@ -4,3 +4,7 @@ This is a fork of Adam Goucher's PHP Formatter for Selenium IDE.
 Example build scripts via Adam Goucher : http://adam.goucher.ca/?p=1331
 
 --------------------------------------------------
+
+
+copy sauceformatters@seleniumhq.org to:
+\Users\<user>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile.default>\extensions
