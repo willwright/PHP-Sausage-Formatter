@@ -2,18 +2,18 @@
 <RDF xmlns="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
  xmlns:em="http://www.mozilla.org/2004/em-rdf#">
     <Description about="urn:mozilla:install-manifest">
-        <em:id>sauceformatters@seleniumhq.org</em:id>
+        <em:id>sauceformatters@will-wright.net</em:id>
         <em:name>Selenium IDE: SauceLabs Formatters</em:name>
         <em:version>1.0.0</em:version>
         <em:creator>Will Wright</em:creator>
         <em:description>Sauce code formatters for Selenium IDE</em:description>
         <em:type>2</em:type>
-        <em:homepageURL>http://seleniumhq.org/projects/ide</em:homepageURL>
+        <em:homepageURL>https://github.com/willwright/PHP-Sausage-Formatter</em:homepageURL>
 
         <em:targetApplication>
           <Description>
             <em:id>{ec8030f7-c20a-464f-9b0e-13a3a9e97384}</em:id> <!-- firefox -->
-            <em:minVersion>3.0</em:minVersion>
+            <em:minVersion>11.0</em:minVersion>
             <em:maxVersion>11.*</em:maxVersion>
           </Description>
         </em:targetApplication>
