@@ -6,5 +6,15 @@ Example build scripts via Adam Goucher : http://adam.goucher.ca/?p=1331
 --------------------------------------------------
 
 
-copy sauceformatters@seleniumhq.org to:
-\Users\<user>\AppData\Roaming\Mozilla\Firefox\Profiles\<profile.default>\extensions
+Description:
+Provides "Sausage" exporter for use with SauceLabs (https://saucelabs.com) and the PHP framework Sausage (https://github.com/jlipps/sausage)
+
+Developer Notes:
+This repo is very much a work in progress.  I've created exports for most the "basic" Selenium IDE commands, but not all
+of them have export translations.
+
+Installation Instructions:
+# Download sauceformatters.xpi
+# Open FireFox
+# Navigate to: Tools > Add-ons > Click the "gear" in the top right > Choose "Install Add-on from File..." > Locate
+"sauceformatters.xpi" in file chooser dialog and open
