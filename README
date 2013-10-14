@@ -16,5 +16,4 @@ of them have export translations.
 Installation Instructions:
 1. Download sauceformatters.xpi
 2. Open FireFox
-3. Navigate to: Tools > Add-ons > Click the "gear" in the top right > Choose "Install Add-on from File..." > Locate
-    "sauceformatters.xpi" in file chooser dialog and open
+3. Navigate to: Tools > Add-ons > Click the "gear" in the top right > Choose "Install Add-on from File..." > Locate "sauceformatters.xpi" in file chooser dialog and open
