@@ -14,7 +14,7 @@ This repo is very much a work in progress.  I've created exports for most the "b
 of them have export translations.
 
 Installation Instructions:
-# Download sauceformatters.xpi
-# Open FireFox
-# Navigate to: Tools > Add-ons > Click the "gear" in the top right > Choose "Install Add-on from File..." > Locate
-"sauceformatters.xpi" in file chooser dialog and open
+1. Download sauceformatters.xpi
+2. Open FireFox
+3. Navigate to: Tools > Add-ons > Click the "gear" in the top right > Choose "Install Add-on from File..." > Locate
+    "sauceformatters.xpi" in file chooser dialog and open
