@@ -112,7 +112,9 @@ RegexpMatch.prototype.toString = function() {
 };
 
 function waitFor(expression) {
-    return "$this->spinAssert(\"waitFor Failed\",(" + expression + "));";
+    var exp = expression.toString();
+    exp = exp.replace(/\$this/g,"$driver");
+    return "$driver = $this;$anon = function() use ($driver) {return ("+exp+");};$this->spinAssert(\"waitFor Failed\",$anon);";
 }
 
 function assertOrVerifyFailure(line, isAssert) {
@@ -277,4 +279,14 @@ WDAPI.Utils = function() {
 
 WDAPI.Utils.isElementPresent = function(locatorType, locator) {
     return "$this->element(" + WDAPI.Driver.searchContext(locatorType, locator) + ") instanceof PHPUnit_Extensions_Selenium2TestCase_Element"
+};
+
+
+SeleniumWebDriverAdaptor.prototype.mouseOver = function() {
+    var parts = this.rawArgs[0].split("=");
+    if (parts[0] == 'css') {
+        return "$this->execute(array('script' => \"jQuery('"+ parts[1] +"').mouseover()\",'args' => array()))";
+    } else {
+        return "$this->execute(array('script' => \"jQuery('replace-with-css-selector<"+this.rawArgs[0]+">').mouseover()\",'args'   => array()))";
+    }
 };
