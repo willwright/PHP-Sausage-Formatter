@@ -10,8 +10,7 @@ Description:
 Provides "Sausage" exporter for use with SauceLabs (https://saucelabs.com) and the PHP framework Sausage (https://github.com/jlipps/sausage)
 
 Developer Notes:
-This repo is very much a work in progress.  I've created exports for most the "basic" Selenium IDE commands, but not all
-of them have export translations.
+This repo is very much a work in progress.  I've created exports for most the "basic" Selenium IDE commands, but not all of them have export translations.
 
 Installation Instructions:
 1. Download sauceformatters.xpi
